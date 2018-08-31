@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>frontend-domain-boundary</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="react"></div>
+      <div id="vue"></div>
+   <script src="/main.js"></script>
+   <style>
+    #wrapper {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      
+    }
+    #wrapper > * {
+      flex: 1 0 auto;
+      /* align-self:stretch; */
+    }
+   </style>
+  </body>
+</html>
