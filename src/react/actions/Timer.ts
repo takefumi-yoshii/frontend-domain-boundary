@@ -1,4 +1,4 @@
-import { getDateLabel } from '../../helpers/date'
+import { getDateLabel } from '../../models/TodoItem'
 function tick(date: Date) {
   return { label: getDateLabel(date) }
 }

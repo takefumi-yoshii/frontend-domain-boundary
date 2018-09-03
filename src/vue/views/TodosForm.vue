@@ -2,7 +2,7 @@
   <form v-on:submit="handleSubmit">
     <input
       type="text"
-      v-model="input"
+      :value="inputValue"
       v-on:change="e => handleInputChange(e.target.value)"
     />
     <button>addTodo</button>
@@ -12,10 +12,10 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import * as Todos from '../modules/Todos'
+import * as Todos from '../models/Todos'
 const computed = {
   ...Todos.mapGetters({
-    input: 'getInputValue'
+    inputValue: 'getInputValue'
   })
 }
 const methods = {
@@ -27,6 +27,11 @@ const methods = {
     e.preventDefault()
     Todos.commits.addTodo()
   }
+}
+const watch = {
+  ...Todos.mapGetters({
+    inputValue: 'getInputValue'
+  })
 }
 export default Vue.extend({ computed, methods })
 </script>

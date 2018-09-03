@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createAggregate, createActions } from 'redux-aggregate'
 import { TimerAC } from './actions/timer'
 import { TodosST, TodosModel, TodosMT, TodosSB } from './models/Todos'
-import { wait } from '../helpers/promise'
+import { AbstractService } from '../main'
 
 // ______________________________________________________
 //
@@ -29,18 +29,23 @@ function storeFactory<R extends ReducersMapObject>(reducer: R): Store<StoreST> {
   return createStore(combineReducers(reducer), composeWithDevTools())
 }
 export const store = storeFactory({
-  todos: Todos.reducerFactory(TodosModel({ name: 'REACT_TODOS' }))
+  todos: Todos.reducerFactory(
+    TodosModel({
+      name: 'REACT_TODOS',
+      bounderyOutsideName: 'Vuex'
+    })
+  )
 })
 
 // ______________________________________________________
 //
 // @ Services
 
-async function runTimerService() {
-  while (true) {
-    await wait()
-    store.dispatch(Timer.creators.tick(new Date()))
+export const ReduxService: AbstractService = {
+  tick(date: Date) {
+    store.dispatch(Timer.creators.tick(date))
+  },
+  changeBounderyOutside(itemsLength: number) {
+    store.dispatch(Todos.creators.setBounderyOutsideCount(itemsLength))
   }
 }
-store.dispatch(Timer.creators.tick(new Date()))
-runTimerService()

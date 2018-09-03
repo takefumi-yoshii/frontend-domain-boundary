@@ -21,7 +21,9 @@ export const TodosModel = TodosPresentModel
 const selectors = {
   input: (state: TodosST) => state.input,
   items: (state: TodosST) => state.items,
-  showAll: (state: TodosST) => state.showAll
+  showAll: (state: TodosST) => state.showAll,
+  bounderyOutsideName: (state: TodosST) => state.bounderyOutsideName,
+  bounderyOutsideCount: (state: TodosST) => state.bounderyOutsideCount
 }
 export const TodosQR = {
   getInputValue: createSelector(
@@ -39,6 +41,10 @@ export const TodosQR = {
   getToggleVisibleItemsBtnLabel: createSelector(
     [selectors.showAll],
     TodosPresentUC.getToggleVisibleItemsBtnLabel
+  ),
+  getBounderyOutsideCountLabel: createSelector(
+    [selectors.bounderyOutsideName, selectors.bounderyOutsideCount],
+    TodosPresentUC.getBounderyOutsideCountLabel
   )
 }
 

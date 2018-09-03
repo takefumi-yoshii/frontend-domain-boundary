@@ -1,5 +1,5 @@
 import { fromState, fromMutations } from 'vuex-aggregate'
-import { getDateLabel } from '../../helpers/date'
+import { getDateLabel } from '../../models/TodoItem'
 
 const namespace = 'timer'
 

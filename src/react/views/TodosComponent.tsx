@@ -20,6 +20,7 @@ const View = (props: Props) => (
     <h1>{props.name}</h1>
     <p>{props.dateLabel}</p>
     <p>{props.todosCountStatusLabel}</p>
+    <p>{props.bounderyOutsideCountLabel}</p>
     <p>
       <button onClick={() => props.handleClickToggle()}>
         {props.toggleVisibleItemsBtnLabel}

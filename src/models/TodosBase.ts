@@ -5,12 +5,10 @@ import { TodoItemModel, TodoItemST } from './TodoItem'
 // @ TodosModel State
 
 export interface TodosBaseST {
-  name: string
   input: string | null
   items: TodoItemST[]
 }
 export const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
-  name: '',
   input: null,
   items: [],
   ...injects

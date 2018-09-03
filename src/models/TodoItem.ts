@@ -1,5 +1,4 @@
 import { uuid } from '../helpers/uuid'
-import { getDateLabel } from '../helpers/date'
 
 // ______________________________________________________
 //
@@ -23,6 +22,14 @@ export const TodoItemModel = (injects?: Partial<TodoItemST>) => ({
 //
 // @ TodosItem UseCases
 
+export function getDateLabel(date: Date) {
+  const month = date.getMonth() + 1
+  const _date = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+  return `${month}/${_date} ${hour}:${minute}:${second}`
+}
 export const TodoItemUC = {
   getDateLabel
 }

@@ -3,6 +3,7 @@
     <h1>{{name}}</h1>
     <p>{{dateLabel}}</p>
     <p>{{todosCountStatusLabel}}</p>
+    <p>{{bounderyOutsideCountLabel}}</p>
     <p>
       <button v-on:click="handleClickToggle">
         {{toggleVisibleItemsBtnLabel}}
@@ -18,8 +19,8 @@
 import Vue from 'vue'
 import TodosForm from './TodosForm.vue'
 import TodosItems from './TodosItems.vue'
-import * as Timer from '../modules/Timer'
-import * as Todos from '../modules/Todos'
+import * as Timer from '../models/Timer'
+import * as Todos from '../models/Todos'
 const computed = {
   ...Timer.mapState({
     dateLabel: 'dateLabel'
@@ -30,7 +31,8 @@ const computed = {
   }),
   ...Todos.mapGetters({
     todosCountStatusLabel: 'getTodosCountStatusLabel',
-    toggleVisibleItemsBtnLabel: 'getToggleVisibleItemsBtnLabel'
+    toggleVisibleItemsBtnLabel: 'getToggleVisibleItemsBtnLabel',
+    bounderyOutsideCountLabel: 'getBounderyOutsideCountLabel'
   })
 }
 const methods = {

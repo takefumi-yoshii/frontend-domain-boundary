@@ -13,6 +13,7 @@ export type MapState = {
   name: string
   todosCountStatusLabel: string
   toggleVisibleItemsBtnLabel: string
+  bounderyOutsideCountLabel: string
   dateLabel: string
   bgColor: string
 }
@@ -35,6 +36,7 @@ const mapState = (store: StoreST): MapState => ({
   toggleVisibleItemsBtnLabel: TodosQR.getToggleVisibleItemsBtnLabel(
     store.todos
   ),
+  bounderyOutsideCountLabel: TodosQR.getBounderyOutsideCountLabel(store.todos),
   dateLabel: store.todos.dateLabel,
   bgColor: store.todos.bgColor
 })

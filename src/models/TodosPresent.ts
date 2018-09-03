@@ -12,15 +12,21 @@ const { getDoingItems, getDoneItems } = TodosBaseUC
 // @ TodosPresentModel State
 
 export interface TodosPresentST extends TodosBaseST {
+  name: string
   showAll: boolean
   dateLabel: string
   bgColor: string
+  bounderyOutsideName: string
+  bounderyOutsideCount: number
 }
 export const TodosPresentModel = (injects?: Partial<TodosPresentST>) => ({
   ...TodosBaseModel(),
+  name: '',
   showAll: true,
   dateLabel: '',
   bgColor: '#fff',
+  bounderyOutsideName: 'unknown',
+  bounderyOutsideCount: 0,
   ...injects
 })
 
@@ -40,11 +46,18 @@ function getTodosCountStatusLabel(items: TodoItemST[]): string {
   const done = `done: ${getDoneItems(items).length}`
   return `${all} / ${doing} / ${done}`
 }
+function getBounderyOutsideCountLabel(
+  bounderyOutsideName: string,
+  bounderyOutsideCount: number
+): string {
+  return `${bounderyOutsideName} count is ${bounderyOutsideCount}.`
+}
 export const TodosPresentUC = {
   ...TodosBaseUC,
   getVisibleItems,
   getToggleVisibleItemsBtnLabel,
-  getTodosCountStatusLabel
+  getTodosCountStatusLabel,
+  getBounderyOutsideCountLabel
 }
 
 // ______________________________________________________
@@ -57,8 +70,12 @@ function toggleShowAll(state: TodosPresentST): void {
 function setDateLabel(state: TodosPresentST, payload: { label: string }): void {
   state.dateLabel = payload.label
 }
+function setBounderyOutsideCount(state: TodosPresentST, amount: number) {
+  state.bounderyOutsideCount = amount
+}
 export const TodosPresentMT = {
   ...TodosBaseMT,
   toggleShowAll,
-  setDateLabel
+  setDateLabel,
+  setBounderyOutsideCount
 }

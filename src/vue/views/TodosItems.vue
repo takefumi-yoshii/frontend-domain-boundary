@@ -15,7 +15,7 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import * as Todos from '../modules/Todos'
+import * as Todos from '../models/Todos'
 const computed = {
   ...Todos.mapGetters({
     todos: 'getVisibleItems'
