@@ -1,18 +1,31 @@
-import { ReduxService, store as ReduxStore } from './react/store'
-import { VuexService, store as VuexStore } from './vue/store'
+import { TodosPresentST } from './models/TodosPresent'
+import { ReduxService } from './react/store'
+import { VuexService } from './vue/store'
 import { wait } from './helpers/promise'
 import './react/app'
 import './vue/app'
-import { TodoItemST } from './models/TodoItem'
-import { TodosPresentST } from './models/TodosPresent'
+
+
+// ______________________________________________________
+//
+// @ Types
+
+export interface AbstractService {
+  tick: (date: Date) => void
+  subscribe: (args?: any) => any
+  getStateTodos(): TodosPresentST
+  onChangeBounderyOutside: (state: { todos: TodosPresentST }) => void
+}
 
 // ______________________________________________________
 //
 // @ Services
 
-export interface AbstractService {
-  tick: (date: Date) => void
-  changeBounderyOutside: (itemsLength: number) => void
+function mapBounderyOutside(service: AbstractService, bounderyOutside: AbstractService) {
+  service.subscribe(() => {
+    const todos = service.getStateTodos()
+    bounderyOutside.onChangeBounderyOutside({ todos })
+  })
 }
 
 async function timerService(service: AbstractService) {
@@ -25,34 +38,14 @@ async function timerService(service: AbstractService) {
   }
 }
 
-function mapVuexToRedux() {
-  let _length = 0
-  VuexStore.subscribe(() => {
-    const { todos } = VuexStore.state
-    const length = todos.items.length
-    if (length !== _length) {
-      ReduxService.changeBounderyOutside(length)
-      _length = length
-    }
-  })
-}
-function mapReduxToVuex() {
-  let _length = 0
-  ReduxStore.subscribe(() => {
-    const { todos } = ReduxStore.getState()
-    const length = todos.items.length
-    if (length !== _length) {
-      VuexService.changeBounderyOutside(length)
-      _length = length
-    }
-  })
-}
-
-function runService(service: AbstractService) {
+function runService(service: AbstractService, bounderyOutside: AbstractService) {
+  mapBounderyOutside(service, bounderyOutside)
   timerService(service)
 }
 
-runService(ReduxService)
-runService(VuexService)
-mapVuexToRedux()
-mapReduxToVuex()
+// ______________________________________________________
+//
+// @ exec
+
+runService(ReduxService, VuexService)
+runService(VuexService, ReduxService)

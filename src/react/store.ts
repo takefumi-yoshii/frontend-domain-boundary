@@ -4,6 +4,7 @@ import { createAggregate, createActions } from 'redux-aggregate'
 import { TimerAC } from './actions/timer'
 import { TodosST, TodosModel, TodosMT, TodosSB } from './models/Todos'
 import { AbstractService } from '../main'
+import { TodosPresentST } from '../models/TodosPresent'
 
 // ______________________________________________________
 //
@@ -42,10 +43,17 @@ export const store = storeFactory({
 // @ Services
 
 export const ReduxService: AbstractService = {
+  subscribe: store.subscribe,
+  getStateTodos(): TodosPresentST {
+    return store.getState().todos
+  },
+  onChangeBounderyOutside(state: { todos: TodosPresentST }) {
+    const itemsLength = state.todos.items.length
+    if (itemsLength !== store.getState().todos.bounderyOutsideCount) {
+      store.dispatch(Todos.creators.setBounderyOutsideCount(itemsLength))
+    }
+  },
   tick(date: Date) {
     store.dispatch(Timer.creators.tick(date))
-  },
-  changeBounderyOutside(itemsLength: number) {
-    store.dispatch(Todos.creators.setBounderyOutsideCount(itemsLength))
   }
 }
