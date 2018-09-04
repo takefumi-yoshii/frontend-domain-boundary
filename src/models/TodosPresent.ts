@@ -1,10 +1,11 @@
+import { toDateLabel } from '../helpers/date'
 import {
   TodosBaseST,
   TodosBaseUC,
   TodosBaseMT,
   TodosBaseModel
 } from './TodosBase'
-import { TodoItemST } from './TodoItem'
+import { TodoST, TodoPresentST } from './TodoItem'
 const { getDoingItems, getDoneItems } = TodosBaseUC
 
 // ______________________________________________________
@@ -34,13 +35,20 @@ export const TodosPresentModel = (injects?: Partial<TodosPresentST>) => ({
 //
 // @ TodosPresentModel UseCases
 
-function getVisibleItems(items: TodoItemST[], showAll: boolean): TodoItemST[] {
+function getVisibleItems(items: TodoST[], showAll: boolean): TodoST[] {
   return showAll ? items : getDoingItems(items)
+}
+function getVisiblePresentItems(
+  items: TodoST[],
+  showAll: boolean
+): TodoPresentST[] {
+  const _items = getVisibleItems(items, showAll)
+  return _items.map(item => ({ ...item, dateLabel: toDateLabel(item.date) }))
 }
 function getToggleVisibleItemsBtnLabel(showAll: boolean): string {
   return showAll ? 'hide done items' : 'show all items'
 }
-function getTodosCountStatusLabel(items: TodoItemST[]): string {
+function getTodosCountStatusLabel(items: TodoST[]): string {
   const all = `all: ${items.length}`
   const doing = `doing: ${getDoingItems(items).length}`
   const done = `done: ${getDoneItems(items).length}`
@@ -52,16 +60,12 @@ function getBounderyOutsideCountLabel(
 ): string {
   return `${bounderyOutsideName} count is ${bounderyOutsideCount}.`
 }
-function getDateLabel(dateLabel: string): string {
-  return `current time: ${dateLabel}`
-}
 export const TodosPresentUC = {
   ...TodosBaseUC,
-  getVisibleItems,
+  getVisiblePresentItems,
   getToggleVisibleItemsBtnLabel,
   getTodosCountStatusLabel,
-  getBounderyOutsideCountLabel,
-  getDateLabel
+  getBounderyOutsideCountLabel
 }
 
 // ______________________________________________________

@@ -14,7 +14,7 @@
           >done</button>
         </p>
         <p class="value">{{todo.value}}</p>
-        <p class="dateLabel">{{todo.date}}</p>
+        <p class="dateLabel">{{todo.dateLabel}}</p>
       </li>
     </ul>
   </div>

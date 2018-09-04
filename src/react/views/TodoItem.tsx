@@ -1,13 +1,15 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { TodoST, TodoQR } from '../models/Todo'
 
 // ______________________________________________________
 //
 // @ Types
 
 type Props = {
-  todo: TodoST
+  id: string
+  value: string | null
+  done: boolean
+  dateLabel: string
   handleClickDone: (payload: { id: string; done: boolean }) => any
   className?: string
 }
@@ -20,14 +22,14 @@ const View = (props: Props) => (
   <li className={props.className}>
     <p className="button">
       <button
-        onClick={() => props.handleClickDone({ id: props.todo.id, done: true })}
-        disabled={props.todo.done}
+        onClick={() => props.handleClickDone({ id: props.id, done: true })}
+        disabled={props.done}
       >
         done
       </button>
     </p>
-    <p className="value">{props.todo.value}</p>
-    <p className="dateLabel">{TodoQR.getDateLabel(props.todo)}</p>
+    <p className="value">{props.value}</p>
+    <p className="dateLabel">{props.dateLabel}</p>
   </li>
 )
 
@@ -38,7 +40,7 @@ const View = (props: Props) => (
 export default styled(View)`
   display: flex;
   justify-content: space-around;
-  color: ${props => (props.todo.done ? '#eee' : '#000')};
+  color: ${props => (props.done ? '#eee' : '#000')};
   > .button {
     margin: 0;
   }

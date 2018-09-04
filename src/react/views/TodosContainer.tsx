@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch, AnyAction } from 'redux'
 import { StoreST, Todos } from '../store'
+import { TimerQR } from '../models/Timer'
 import { TodosQR } from '../models/Todos'
 import TodosComponent from './TodosComponent'
 
@@ -37,7 +38,7 @@ const mapState = (store: StoreST): MapState => ({
     store.todos
   ),
   bounderyOutsideCountLabel: TodosQR.getBounderyOutsideCountLabel(store.todos),
-  dateLabel: TodosQR.getDateLabel(store.todos),
+  dateLabel: TimerQR.getDateLabel(store.timer),
   bgColor: store.todos.bgColor
 })
 const mapDispatch = (dispatch: Dispatch<AnyAction>): MapDispatch =>

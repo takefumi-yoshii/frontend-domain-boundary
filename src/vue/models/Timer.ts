@@ -1,6 +1,10 @@
 import { fromState, fromGetters, fromMutations } from 'vuex-aggregate'
-import { getDateLabel } from '../../models/TodoItem'
-import { TodosPresentUC } from '../../models/TodosPresent'
+import {
+  TimerBaseST,
+  TimerBaseModel,
+  TimerBaseUC,
+  TimerBaseMT
+} from '../../models/TimerBase'
 
 const namespace = 'timer'
 
@@ -8,13 +12,8 @@ const namespace = 'timer'
 //
 // @ Timer State
 
-interface TimerST {
-  dateLabel: string
-}
-const TimerModel = (injects?: Partial<TimerST>) => ({
-  dateLabel: '',
-  ...injects
-})
+interface TimerST extends TimerBaseST {}
+const TimerModel = TimerBaseModel
 const { mapState } = fromState(TimerModel(), namespace)
 
 // ______________________________________________________
@@ -23,7 +22,7 @@ const { mapState } = fromState(TimerModel(), namespace)
 
 const TimerGT = {
   getDateLabel(state: TimerST) {
-    return TodosPresentUC.getDateLabel(state.dateLabel)
+    return TimerBaseUC.getDateLabel(state.dateLabel)
   }
 }
 const { getters, mapGetters } = fromGetters(TimerGT, namespace)
@@ -32,11 +31,7 @@ const { getters, mapGetters } = fromGetters(TimerGT, namespace)
 //
 // @ Timer Mutations
 
-const TimerMT = {
-  tick(state: TimerST, date: Date) {
-    state.dateLabel = getDateLabel(date)
-  }
-}
+const TimerMT = TimerBaseMT
 const { commits, mapMutations } = fromMutations(TimerMT, namespace)
 
 // ______________________________________________________

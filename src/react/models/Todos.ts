@@ -31,9 +31,9 @@ export const TodosQR = {
     [selectors.input],
     TodosPresentUC.getInputValue
   ),
-  getVisibleItems: createSelector(
+  getVisiblePresentItems: createSelector(
     [selectors.items, selectors.showAll],
-    TodosPresentUC.getVisibleItems
+    TodosPresentUC.getVisiblePresentItems
   ),
   getTodosCountStatusLabel: createSelector(
     [selectors.items],
@@ -46,10 +46,6 @@ export const TodosQR = {
   getBounderyOutsideCountLabel: createSelector(
     [selectors.bounderyOutsideName, selectors.bounderyOutsideCount],
     TodosPresentUC.getBounderyOutsideCountLabel
-  ),
-  getDateLabel: createSelector(
-    [selectors.dateLabel],
-    TodosPresentUC.getDateLabel
   )
 }
 
@@ -58,13 +54,3 @@ export const TodosQR = {
 // @ Todos Mutations
 
 export const TodosMT = wrapImmer(TodosPresentMT)
-
-// ______________________________________________________
-//
-// @ Todos Subscriptions
-
-export const TodosSB = {
-  Timer: wrapImmer({
-    tick: TodosPresentMT.setDateLabel
-  })
-}

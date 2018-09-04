@@ -4,30 +4,19 @@ import { uuid } from '../helpers/uuid'
 //
 // @ TodosItem State
 
-export interface TodoItemST {
+export interface TodoST {
   id: string
   date: Date
   value: string | null
   done: boolean
 }
-export const TodoItemModel = (injects?: Partial<TodoItemST>) => ({
+export interface TodoPresentST extends TodoST {
+  dateLabel: string
+}
+export const TodoItemModel = (injects?: Partial<TodoST>) => ({
   id: uuid(),
   date: new Date(),
   value: '',
   done: false,
   ...injects
 })
-
-// ______________________________________________________
-//
-// @ TodosItem UseCases
-
-export function getDateLabel(date: Date) {
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-  return `${hour}:${minute}:${second}`
-}
-export const TodoItemUC = {
-  getDateLabel
-}

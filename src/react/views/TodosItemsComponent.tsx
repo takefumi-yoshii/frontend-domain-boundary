@@ -22,7 +22,10 @@ const View = (props: Props) => (
     {props.items.map(todo => (
       <TodoItem
         key={todo.id}
-        todo={todo}
+        id={todo.id}
+        value={todo.value}
+        done={todo.done}
+        dateLabel={todo.dateLabel}
         handleClickDone={props.handleClickDone}
       />
     ))}

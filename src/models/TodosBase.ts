@@ -1,4 +1,4 @@
-import { TodoItemModel, TodoItemST } from './TodoItem'
+import { TodoItemModel, TodoST } from './TodoItem'
 
 // ______________________________________________________
 //
@@ -6,7 +6,7 @@ import { TodoItemModel, TodoItemST } from './TodoItem'
 
 export interface TodosBaseST {
   input: string | null
-  items: TodoItemST[]
+  items: TodoST[]
 }
 export const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
   input: null,
@@ -18,10 +18,10 @@ export const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
 //
 // @ TodosModel UseCases
 
-function getDoingItems(items: TodoItemST[]): TodoItemST[] {
+function getDoingItems(items: TodoST[]): TodoST[] {
   return items.filter(item => !item.done)
 }
-function getDoneItems(items: TodoItemST[]): TodoItemST[] {
+function getDoneItems(items: TodoST[]): TodoST[] {
   return items.filter(item => item.done)
 }
 function getInputValue(input: string | null): string {

@@ -5,7 +5,6 @@ import {
   TodosPresentUC,
   TodosPresentMT
 } from '../../models/TodosPresent'
-import { TodoItemUC } from '../../models/TodoItem'
 
 const namespace = 'todos'
 
@@ -26,11 +25,7 @@ const TodosGT = {
     return TodosPresentUC.getInputValue(state.input)
   },
   getVisibleItems(state: TodosST) {
-    const items = TodosPresentUC.getVisibleItems(state.items, state.showAll)
-    return items.map(item => ({
-      ...item,
-      date: TodoItemUC.getDateLabel(item.date)
-    }))
+    return TodosPresentUC.getVisiblePresentItems(state.items, state.showAll)
   },
   getTodosCountStatusLabel(state: TodosST) {
     return TodosPresentUC.getTodosCountStatusLabel(state.items)
