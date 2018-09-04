@@ -1,7 +1,7 @@
 <template>
   <div class='todos'>
     <h1>{{name}}</h1>
-    <p>{{dateLabel}}</p>
+    <p class='dateLabel'>{{dateLabel}}</p>
     <p>{{todosCountStatusLabel}}</p>
     <p>{{bounderyOutsideCountLabel}}</p>
     <p>
@@ -22,8 +22,8 @@ import TodosItems from './TodosItems.vue'
 import * as Timer from '../models/Timer'
 import * as Todos from '../models/Todos'
 const computed = {
-  ...Timer.mapState({
-    dateLabel: 'dateLabel'
+  ...Timer.mapGetters({
+    dateLabel: 'getDateLabel'
   }),
   ...Todos.mapState({
     name: 'name',
@@ -56,10 +56,11 @@ export default Vue.extend({ computed, methods, components })
 }
 .todos > h1 {
   margin-bottom: 10px;
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: bolder;
 }
 .todos > p {
-  margin-bottom: 10px;
+  margin: 5px;
+  font-size: 12px;
 }
 </style>

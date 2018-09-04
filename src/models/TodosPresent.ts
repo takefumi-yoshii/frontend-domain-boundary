@@ -52,12 +52,16 @@ function getBounderyOutsideCountLabel(
 ): string {
   return `${bounderyOutsideName} count is ${bounderyOutsideCount}.`
 }
+function getDateLabel(dateLabel: string): string {
+  return `current time: ${dateLabel}`
+}
 export const TodosPresentUC = {
   ...TodosBaseUC,
   getVisibleItems,
   getToggleVisibleItemsBtnLabel,
   getTodosCountStatusLabel,
-  getBounderyOutsideCountLabel
+  getBounderyOutsideCountLabel,
+  getDateLabel
 }
 
 // ______________________________________________________

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import styled from 'styled-components'
 import TodoItem from './TodoItem'
 import { MapState, MapDispatch } from './TodosItemsContainer'
 
@@ -16,8 +17,8 @@ type Props = MapState &
 //
 // @ View
 
-export default (props: Props) => (
-  <>
+const View = (props: Props) => (
+  <ul className={props.className}>
     {props.items.map(todo => (
       <TodoItem
         key={todo.id}
@@ -25,5 +26,18 @@ export default (props: Props) => (
         handleClickDone={props.handleClickDone}
       />
     ))}
-  </>
+  </ul>
 )
+
+// ______________________________________________________
+//
+// @ StyledView
+
+export default styled(View)`
+  padding: 0;
+  > li {
+    margin-bottom: 3px;
+    list-style: none;
+    font-size: 12px;
+  }
+`

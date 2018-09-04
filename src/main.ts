@@ -5,7 +5,6 @@ import { wait } from './helpers/promise'
 import './react/app'
 import './vue/app'
 
-
 // ______________________________________________________
 //
 // @ Types
@@ -21,7 +20,10 @@ export interface AbstractService {
 //
 // @ Services
 
-function mapBounderyOutside(service: AbstractService, bounderyOutside: AbstractService) {
+function mapBounderyOutside(
+  service: AbstractService,
+  bounderyOutside: AbstractService
+) {
   service.subscribe(() => {
     const todos = service.getStateTodos()
     bounderyOutside.onChangeBounderyOutside({ todos })
@@ -38,7 +40,10 @@ async function timerService(service: AbstractService) {
   }
 }
 
-function runService(service: AbstractService, bounderyOutside: AbstractService) {
+function runService(
+  service: AbstractService,
+  bounderyOutside: AbstractService
+) {
   mapBounderyOutside(service, bounderyOutside)
   timerService(service)
 }

@@ -18,7 +18,7 @@ interface Props extends MapState, MapDispatch, OwnProps {
 const View = (props: Props) => (
   <div className={props.className}>
     <h1>{props.name}</h1>
-    <p>{props.dateLabel}</p>
+    <p className="dateLabel">{props.dateLabel}</p>
     <p>{props.todosCountStatusLabel}</p>
     <p>{props.bounderyOutsideCountLabel}</p>
     <p>
@@ -42,10 +42,11 @@ export default styled(View)`
   background-color: ${props => props.bgColor};
   > h1 {
     margin-bottom: 10px;
-    font-size: 2rem;
+    font-size: 20px;
     font-weight: bolder;
   }
   > p {
-    margin-bottom: 10px;
+    margin: 5px;
+    font-size: 12px;
   }
 `

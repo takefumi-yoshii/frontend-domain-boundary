@@ -37,7 +37,7 @@ const mapState = (store: StoreST): MapState => ({
     store.todos
   ),
   bounderyOutsideCountLabel: TodosQR.getBounderyOutsideCountLabel(store.todos),
-  dateLabel: store.todos.dateLabel,
+  dateLabel: TodosQR.getDateLabel(store.todos),
   bgColor: store.todos.bgColor
 })
 const mapDispatch = (dispatch: Dispatch<AnyAction>): MapDispatch =>

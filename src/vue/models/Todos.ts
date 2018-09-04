@@ -5,6 +5,7 @@ import {
   TodosPresentUC,
   TodosPresentMT
 } from '../../models/TodosPresent'
+import { TodoItemUC } from '../../models/TodoItem'
 
 const namespace = 'todos'
 
@@ -25,7 +26,11 @@ const TodosGT = {
     return TodosPresentUC.getInputValue(state.input)
   },
   getVisibleItems(state: TodosST) {
-    return TodosPresentUC.getVisibleItems(state.items, state.showAll)
+    const items = TodosPresentUC.getVisibleItems(state.items, state.showAll)
+    return items.map(item => ({
+      ...item,
+      date: TodoItemUC.getDateLabel(item.date)
+    }))
   },
   getTodosCountStatusLabel(state: TodosST) {
     return TodosPresentUC.getTodosCountStatusLabel(state.items)
@@ -46,7 +51,7 @@ const { getters, mapGetters } = fromGetters(TodosGT, namespace)
 //
 // @ Todos Mutations
 
-const TodosMT = { ...TodosPresentMT }
+const TodosMT = TodosPresentMT
 const { commits, mapMutations } = fromMutations(TodosMT, namespace)
 
 // ______________________________________________________

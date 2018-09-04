@@ -22,6 +22,7 @@ const selectors = {
   input: (state: TodosST) => state.input,
   items: (state: TodosST) => state.items,
   showAll: (state: TodosST) => state.showAll,
+  dateLabel: (state: TodosST) => state.dateLabel,
   bounderyOutsideName: (state: TodosST) => state.bounderyOutsideName,
   bounderyOutsideCount: (state: TodosST) => state.bounderyOutsideCount
 }
@@ -45,6 +46,10 @@ export const TodosQR = {
   getBounderyOutsideCountLabel: createSelector(
     [selectors.bounderyOutsideName, selectors.bounderyOutsideCount],
     TodosPresentUC.getBounderyOutsideCountLabel
+  ),
+  getDateLabel: createSelector(
+    [selectors.dateLabel],
+    TodosPresentUC.getDateLabel
   )
 }
 
