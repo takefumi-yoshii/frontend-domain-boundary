@@ -3,14 +3,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createAggregate } from 'redux-aggregate'
 import { TimerST, TimerModel, TimerMT } from './models/Timer'
 import { TodosST, TodosModel, TodosMT } from './models/Todos'
-import { AbstractService } from '../main'
+import { AbstractService } from '../service'
 import { TodosPresentST } from '../models/TodosPresent'
 
 // ______________________________________________________
 //
 // @ Types
 
-export interface StoreST {
+interface StoreST {
   timer: TimerST
   todos: TodosST
 }
@@ -19,8 +19,8 @@ export interface StoreST {
 //
 // @ Aggregates
 
-export const Timer = createAggregate(TimerMT, 'timer/')
-export const Todos = createAggregate(TodosMT, 'todos/')
+const Timer = createAggregate(TimerMT, 'timer/')
+const Todos = createAggregate(TodosMT, 'todos/')
 
 // ______________________________________________________
 //
@@ -29,7 +29,7 @@ export const Todos = createAggregate(TodosMT, 'todos/')
 function storeFactory<R extends ReducersMapObject>(reducer: R): Store<StoreST> {
   return createStore(combineReducers(reducer), composeWithDevTools())
 }
-export const store = storeFactory({
+const store = storeFactory({
   timer: Timer.reducerFactory(TimerModel()),
   todos: Todos.reducerFactory(
     TodosModel({
@@ -43,7 +43,7 @@ export const store = storeFactory({
 //
 // @ Services
 
-export const ReduxService: AbstractService = {
+const ReduxService: AbstractService = {
   subscribe: store.subscribe,
   getStateTodos(): TodosPresentST {
     return store.getState().todos
@@ -58,3 +58,9 @@ export const ReduxService: AbstractService = {
     store.dispatch(Timer.creators.tick(date))
   }
 }
+
+// ______________________________________________________
+//
+// @ export
+
+export { StoreST, Timer, Todos, store, ReduxService }

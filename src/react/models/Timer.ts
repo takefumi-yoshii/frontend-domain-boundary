@@ -1,18 +1,11 @@
 import { createSelector } from 'reselect'
 import { wrapImmer } from 'redux-aggregate-immer'
 import {
-  TimerBaseST,
-  TimerBaseModel,
-  TimerBaseUC,
+  TimerST,
+  TimerModel,
+  TimerUC,
   TimerBaseMT
 } from '../../models/TimerBase'
-
-// ______________________________________________________
-//
-// @ Todos State
-
-export interface TimerST extends TimerBaseST {}
-export const TimerModel = TimerBaseModel
 
 // ______________________________________________________
 //
@@ -21,12 +14,18 @@ export const TimerModel = TimerBaseModel
 const selectors = {
   dateLabel: (state: TimerST) => state.dateLabel
 }
-export const TimerQR = {
-  getDateLabel: createSelector([selectors.dateLabel], TimerBaseUC.getDateLabel)
+const TimerQR = {
+  getDateLabel: createSelector([selectors.dateLabel], TimerUC.getDateLabel)
 }
 
 // ______________________________________________________
 //
 // @ Todos Mutations
 
-export const TimerMT = wrapImmer(TimerBaseMT)
+const TimerMT = wrapImmer(TimerBaseMT)
+
+// ______________________________________________________
+//
+// @ export
+
+export { TimerST, TimerModel, TimerQR, TimerMT }

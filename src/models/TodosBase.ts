@@ -1,14 +1,14 @@
-import { TodoItemModel, TodoST } from './TodoItem'
+import { TodoBaseModel, TodoBaseST } from './TodoBase'
 
 // ______________________________________________________
 //
 // @ TodosModel State
 
-export interface TodosBaseST {
+interface TodosBaseST {
   input: string | null
-  items: TodoST[]
+  items: TodoBaseST[]
 }
-export const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
+const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
   input: null,
   items: [],
   ...injects
@@ -18,17 +18,17 @@ export const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
 //
 // @ TodosModel UseCases
 
-function getDoingItems(items: TodoST[]): TodoST[] {
+function getDoingItems(items: TodoBaseST[]): TodoBaseST[] {
   return items.filter(item => !item.done)
 }
-function getDoneItems(items: TodoST[]): TodoST[] {
+function getDoneItems(items: TodoBaseST[]): TodoBaseST[] {
   return items.filter(item => item.done)
 }
 function getInputValue(input: string | null): string {
   if (input === null) return ''
   return input
 }
-export const TodosBaseUC = {
+const TodosBaseUC = {
   getDoingItems,
   getDoneItems,
   getInputValue
@@ -40,7 +40,7 @@ export const TodosBaseUC = {
 
 function addTodo(state: TodosBaseST): void {
   if (state.input === '') return
-  state.items.push(TodoItemModel({ value: state.input }))
+  state.items.push(TodoBaseModel({ value: state.input }))
   state.input = ''
 }
 function setInputValue(state: TodosBaseST, value: string): void {
@@ -55,8 +55,14 @@ function setItemDone(
     item.done = done
   })
 }
-export const TodosBaseMT = {
+const TodosBaseMT = {
   addTodo,
   setInputValue,
   setItemDone
 }
+
+// ______________________________________________________
+//
+// @ export
+
+export { TodosBaseST, TodosBaseModel, TodosBaseUC, TodosBaseMT }

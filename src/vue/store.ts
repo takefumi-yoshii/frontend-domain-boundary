@@ -3,7 +3,7 @@ import Vuex, { Store } from 'vuex'
 import * as VuexAggregate from 'vuex-aggregate'
 import * as Timer from './models/Timer'
 import * as Todos from './models/Todos'
-import { AbstractService } from '../main'
+import { AbstractService } from '../service'
 import { TodosPresentST } from '../models/TodosPresent'
 
 // ______________________________________________________
@@ -21,7 +21,7 @@ interface StoreST {
 
 Vue.use(Vuex)
 
-export const store: Store<StoreST> = new Vuex.Store({
+const store: Store<StoreST> = new Vuex.Store({
   modules: {
     [Timer.namespace]: Timer.moduleFactory(),
     [Todos.namespace]: Todos.moduleFactory({
@@ -37,7 +37,7 @@ VuexAggregate.use(store) // Required
 //
 // @ Services
 
-export const VuexService: AbstractService = {
+const VuexService: AbstractService = {
   subscribe: (fn: any) => store.subscribe(fn),
   getStateTodos(): TodosPresentST {
     return store.state.todos
@@ -52,3 +52,9 @@ export const VuexService: AbstractService = {
     Timer.commits.tick(date)
   }
 }
+
+// ______________________________________________________
+//
+// @ export
+
+export { store, VuexService }

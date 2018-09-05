@@ -2,21 +2,24 @@ import { uuid } from '../helpers/uuid'
 
 // ______________________________________________________
 //
-// @ TodosItem State
+// @ TodoBase State
 
-export interface TodoST {
+interface TodoBaseST {
   id: string
   date: Date
   value: string | null
   done: boolean
 }
-export interface TodoPresentST extends TodoST {
-  dateLabel: string
-}
-export const TodoItemModel = (injects?: Partial<TodoST>) => ({
+const TodoBaseModel = (injects?: Partial<TodoBaseST>) => ({
   id: uuid(),
   date: new Date(),
   value: '',
   done: false,
   ...injects
 })
+
+// ______________________________________________________
+//
+// @ export
+
+export { TodoBaseST, TodoBaseModel }

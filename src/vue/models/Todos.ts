@@ -1,40 +1,38 @@
 import { fromState, fromMutations, fromGetters } from 'vuex-aggregate'
 import {
-  TodosPresentST,
-  TodosPresentModel,
-  TodosPresentUC,
-  TodosPresentMT
+  TodosST,
+  TodosModel,
+  TodosUC,
+  TodosMT
 } from '../../models/TodosPresent'
 
 const namespace = 'todos'
 
 // ______________________________________________________
 //
-// @ Todos State
+// @ State
 
-interface TodosST extends TodosPresentST {}
-const TodosModel = TodosPresentModel
 const { mapState } = fromState(TodosModel(), namespace)
 
 // ______________________________________________________
 //
-// @ Todos Getters
+// @ Getters
 
 const TodosGT = {
   getInputValue(state: TodosST) {
-    return TodosPresentUC.getInputValue(state.input)
+    return TodosUC.getInputValue(state.input)
   },
   getVisibleItems(state: TodosST) {
-    return TodosPresentUC.getVisiblePresentItems(state.items, state.showAll)
+    return TodosUC.getVisiblePresentItems(state.items, state.showAll)
   },
   getTodosCountStatusLabel(state: TodosST) {
-    return TodosPresentUC.getTodosCountStatusLabel(state.items)
+    return TodosUC.getTodosCountStatusLabel(state.items)
   },
   getToggleVisibleItemsBtnLabel(state: TodosST) {
-    return TodosPresentUC.getToggleVisibleItemsBtnLabel(state.showAll)
+    return TodosUC.getToggleVisibleItemsBtnLabel(state.showAll)
   },
   getBounderyOutsideCountLabel(state: TodosST) {
-    return TodosPresentUC.getBounderyOutsideCountLabel(
+    return TodosUC.getBounderyOutsideCountLabel(
       state.bounderyOutsideName,
       state.bounderyOutsideCount
     )
@@ -44,9 +42,8 @@ const { getters, mapGetters } = fromGetters(TodosGT, namespace)
 
 // ______________________________________________________
 //
-// @ Todos Mutations
+// @ Mutations
 
-const TodosMT = TodosPresentMT
 const { commits, mapMutations } = fromMutations(TodosMT, namespace)
 
 // ______________________________________________________
@@ -59,6 +56,10 @@ const moduleFactory = (injects?: Partial<TodosST>) => ({
   getters: TodosGT,
   mutations: TodosMT
 })
+
+// ______________________________________________________
+//
+// @ export
 
 export {
   TodosST,

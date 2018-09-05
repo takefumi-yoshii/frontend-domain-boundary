@@ -1,18 +1,11 @@
 import { createSelector } from 'reselect'
 import { wrapImmer } from 'redux-aggregate-immer'
 import {
-  TodosPresentST,
-  TodosPresentModel,
-  TodosPresentUC,
+  TodosST,
+  TodosModel,
+  TodosUC,
   TodosPresentMT
 } from '../../models/TodosPresent'
-
-// ______________________________________________________
-//
-// @ Todos State
-
-export interface TodosST extends TodosPresentST {}
-export const TodosModel = TodosPresentModel
 
 // ______________________________________________________
 //
@@ -26,26 +19,23 @@ const selectors = {
   bounderyOutsideName: (state: TodosST) => state.bounderyOutsideName,
   bounderyOutsideCount: (state: TodosST) => state.bounderyOutsideCount
 }
-export const TodosQR = {
-  getInputValue: createSelector(
-    [selectors.input],
-    TodosPresentUC.getInputValue
-  ),
+const TodosQR = {
+  getInputValue: createSelector([selectors.input], TodosUC.getInputValue),
   getVisiblePresentItems: createSelector(
     [selectors.items, selectors.showAll],
-    TodosPresentUC.getVisiblePresentItems
+    TodosUC.getVisiblePresentItems
   ),
   getTodosCountStatusLabel: createSelector(
     [selectors.items],
-    TodosPresentUC.getTodosCountStatusLabel
+    TodosUC.getTodosCountStatusLabel
   ),
   getToggleVisibleItemsBtnLabel: createSelector(
     [selectors.showAll],
-    TodosPresentUC.getToggleVisibleItemsBtnLabel
+    TodosUC.getToggleVisibleItemsBtnLabel
   ),
   getBounderyOutsideCountLabel: createSelector(
     [selectors.bounderyOutsideName, selectors.bounderyOutsideCount],
-    TodosPresentUC.getBounderyOutsideCountLabel
+    TodosUC.getBounderyOutsideCountLabel
   )
 }
 
@@ -53,4 +43,10 @@ export const TodosQR = {
 //
 // @ Todos Mutations
 
-export const TodosMT = wrapImmer(TodosPresentMT)
+const TodosMT = wrapImmer(TodosPresentMT)
+
+// ______________________________________________________
+//
+// @ export
+
+export { TodosST, TodosModel, TodosQR, TodosMT }

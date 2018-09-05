@@ -5,4 +5,6 @@ import { AppProvider } from './views/AppProvider'
 
 // ______________________________________________________
 
-render(<AppProvider store={store} />, document.getElementById('react'))
+export function renderReact() {
+  render(<AppProvider store={store} />, document.getElementById('react'))
+}

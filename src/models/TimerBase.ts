@@ -4,10 +4,10 @@ import { toDateLabel } from '../helpers/date'
 //
 // @ TimerModel State
 
-export interface TimerBaseST {
+interface TimerBaseST {
   dateLabel: string
 }
-export const TimerBaseModel = (injects?: Partial<TimerBaseST>) => ({
+const TimerBaseModel = (injects?: Partial<TimerBaseST>) => ({
   dateLabel: '',
   ...injects
 })
@@ -19,7 +19,7 @@ export const TimerBaseModel = (injects?: Partial<TimerBaseST>) => ({
 function getDateLabel(dateLabel: string): string {
   return `current time: ${dateLabel}`
 }
-export const TimerBaseUC = {
+const TimerBaseUC = {
   getDateLabel
 }
 
@@ -30,6 +30,18 @@ export const TimerBaseUC = {
 function tick(state: TimerBaseST, date: Date): void {
   state.dateLabel = toDateLabel(date)
 }
-export const TimerBaseMT = {
+const TimerBaseMT = {
   tick
 }
+
+// ______________________________________________________
+//
+// @ export
+
+interface TimerST extends TimerBaseST {}
+const TimerModel = TimerBaseModel
+const TimerUC = TimerBaseUC
+const TimerMT = TimerBaseMT
+
+export { TimerBaseST, TimerBaseModel, TimerBaseUC, TimerBaseMT }
+export { TimerST, TimerModel, TimerUC, TimerMT }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch, AnyAction } from 'redux'
 import { StoreST, Todos } from '../store'
 import { TodosQR } from '../models/Todos'
-import { TodoPresentST } from '../../models/TodoItem'
+import { TodoST } from '../../models/TodoPresent'
 import TodosItemsComponent from './TodosItemsComponent'
 
 // ______________________________________________________
@@ -11,7 +11,7 @@ import TodosItemsComponent from './TodosItemsComponent'
 // @ Types
 
 export type MapState = {
-  items: TodoPresentST[]
+  items: TodoST[]
 }
 export type MapDispatch = {
   handleClickDone: (payload: { id: string; done: boolean }) => any
