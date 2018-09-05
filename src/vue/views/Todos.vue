@@ -1,9 +1,6 @@
 <template>
   <div class='todos'>
     <h1>{{name}}</h1>
-    <p class='dateLabel'>{{dateLabel}}</p>
-    <p>{{todosCountStatusLabel}}</p>
-    <p>{{bounderyOutsideCountLabel}}</p>
     <p>
       <button v-on:click="handleClickToggle">
         {{toggleVisibleItemsBtnLabel}}
@@ -19,20 +16,14 @@
 import Vue from 'vue'
 import TodosForm from './TodosForm.vue'
 import TodosItems from './TodosItems.vue'
-import * as Timer from '../models/Timer'
 import * as Todos from '../models/Todos'
 const computed = {
-  ...Timer.mapGetters({
-    dateLabel: 'getDateLabel'
-  }),
   ...Todos.mapState({
     name: 'name',
     inputValue: 'input'
   }),
   ...Todos.mapGetters({
-    todosCountStatusLabel: 'getTodosCountStatusLabel',
-    toggleVisibleItemsBtnLabel: 'getToggleVisibleItemsBtnLabel',
-    bounderyOutsideCountLabel: 'getBounderyOutsideCountLabel'
+    toggleVisibleItemsBtnLabel: 'getToggleVisibleItemsBtnLabel'
   })
 }
 const methods = {
@@ -48,7 +39,7 @@ export default Vue.extend({ computed, methods, components })
 </script>
 
 
-<style>
+<style scoped>
 .todos {
   padding: 20px;
   border-radius: 5px;

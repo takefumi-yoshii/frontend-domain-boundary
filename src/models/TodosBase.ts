@@ -2,7 +2,7 @@ import { TodoBaseModel, TodoBaseST } from './TodoBase'
 
 // ______________________________________________________
 //
-// @ TodosModel State
+// @ State
 
 interface TodosBaseST {
   input: string | null
@@ -16,7 +16,7 @@ const TodosBaseModel = (injects?: Partial<TodosBaseST>) => ({
 
 // ______________________________________________________
 //
-// @ TodosModel UseCases
+// @ UseCases
 
 function getDoingItems(items: TodoBaseST[]): TodoBaseST[] {
   return items.filter(item => !item.done)
@@ -36,7 +36,7 @@ const TodosBaseUC = {
 
 // ______________________________________________________
 //
-// @ TodosModel Mutations
+// @ Mutations
 
 function addTodo(state: TodosBaseST): void {
   if (state.input === '') return

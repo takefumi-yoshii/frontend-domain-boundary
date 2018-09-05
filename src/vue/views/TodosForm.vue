@@ -28,10 +28,5 @@ const methods = {
     Todos.commits.addTodo()
   }
 }
-const watch = {
-  ...Todos.mapGetters({
-    inputValue: 'getInputValue'
-  })
-}
 export default Vue.extend({ computed, methods })
 </script>

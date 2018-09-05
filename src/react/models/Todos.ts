@@ -9,15 +9,13 @@ import {
 
 // ______________________________________________________
 //
-// @ Todos Queries
+// @ Queries
 
 const selectors = {
   input: (state: TodosST) => state.input,
   items: (state: TodosST) => state.items,
   showAll: (state: TodosST) => state.showAll,
-  dateLabel: (state: TodosST) => state.dateLabel,
-  bounderyOutsideName: (state: TodosST) => state.bounderyOutsideName,
-  bounderyOutsideCount: (state: TodosST) => state.bounderyOutsideCount
+  dateLabel: (state: TodosST) => state.dateLabel
 }
 const TodosQR = {
   getInputValue: createSelector([selectors.input], TodosUC.getInputValue),
@@ -32,16 +30,12 @@ const TodosQR = {
   getToggleVisibleItemsBtnLabel: createSelector(
     [selectors.showAll],
     TodosUC.getToggleVisibleItemsBtnLabel
-  ),
-  getBounderyOutsideCountLabel: createSelector(
-    [selectors.bounderyOutsideName, selectors.bounderyOutsideCount],
-    TodosUC.getBounderyOutsideCountLabel
   )
 }
 
 // ______________________________________________________
 //
-// @ Todos Mutations
+// @ Mutations
 
 const TodosMT = wrapImmer(TodosPresentMT)
 

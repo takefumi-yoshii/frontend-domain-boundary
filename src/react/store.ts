@@ -1,8 +1,11 @@
-import { createStore, combineReducers, Store, ReducersMapObject } from 'redux'
+import { createStore, combineReducers, applyMiddleware, Store, ReducersMapObject } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import createSagaMiddleware from 'redux-saga'
 import { createAggregate } from 'redux-aggregate'
 import { TimerST, TimerModel, TimerMT } from './models/Timer'
 import { TodosST, TodosModel, TodosMT } from './models/Todos'
+import { SummaryST, SummaryModel, SummaryMT } from './models/Summary'
+import { rootSaga } from './services/Summary'
 import { AbstractService } from '../service'
 import { TodosPresentST } from '../models/TodosPresent'
 
@@ -13,6 +16,7 @@ import { TodosPresentST } from '../models/TodosPresent'
 interface StoreST {
   timer: TimerST
   todos: TodosST
+  summary: SummaryST
 }
 
 // ______________________________________________________
@@ -21,23 +25,28 @@ interface StoreST {
 
 const Timer = createAggregate(TimerMT, 'timer/')
 const Todos = createAggregate(TodosMT, 'todos/')
+const Summary = createAggregate(SummaryMT, 'summary/')
 
 // ______________________________________________________
 //
 // @ Store
 
+const sagaMiddleware = createSagaMiddleware()
 function storeFactory<R extends ReducersMapObject>(reducer: R): Store<StoreST> {
-  return createStore(combineReducers(reducer), composeWithDevTools())
+  return createStore(combineReducers(reducer),
+    composeWithDevTools(applyMiddleware(sagaMiddleware))
+  )
 }
 const store = storeFactory({
   timer: Timer.reducerFactory(TimerModel()),
   todos: Todos.reducerFactory(
-    TodosModel({
-      name: 'REACT_TODOS',
-      bounderyOutsideName: 'Vuex'
-    })
+    TodosModel({ name: 'REACT_TODOS' })
+  ),
+  summary: Summary.reducerFactory(
+    SummaryModel({ bounderyOutsideName: 'Vuex' })
   )
 })
+sagaMiddleware.run(rootSaga)
 
 // ______________________________________________________
 //
@@ -50,8 +59,8 @@ const ReduxService: AbstractService = {
   },
   onChangeBounderyOutside(state: { todos: TodosPresentST }) {
     const itemsLength = state.todos.items.length
-    if (itemsLength !== store.getState().todos.bounderyOutsideCount) {
-      store.dispatch(Todos.creators.setBounderyOutsideCount(itemsLength))
+    if (itemsLength !== store.getState().summary.bounderyOutsideCount) {
+      store.dispatch(Summary.creators.setBounderyOutsideCount(itemsLength))
     }
   },
   tick(date: Date) {
@@ -63,4 +72,4 @@ const ReduxService: AbstractService = {
 //
 // @ export
 
-export { StoreST, Timer, Todos, store, ReduxService }
+export { StoreST, Timer, Todos, Summary, store, ReduxService }

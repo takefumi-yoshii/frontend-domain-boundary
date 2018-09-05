@@ -2,7 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch, AnyAction } from 'redux'
 import { StoreST, Todos } from '../store'
-import { TimerQR } from '../models/Timer'
 import { TodosQR } from '../models/Todos'
 import TodosComponent from './TodosComponent'
 
@@ -12,10 +11,7 @@ import TodosComponent from './TodosComponent'
 
 export type MapState = {
   name: string
-  todosCountStatusLabel: string
   toggleVisibleItemsBtnLabel: string
-  bounderyOutsideCountLabel: string
-  dateLabel: string
   bgColor: string
 }
 export type MapDispatch = {
@@ -33,12 +29,10 @@ export type OwnProps = {
 
 const mapState = (store: StoreST): MapState => ({
   name: store.todos.name,
-  todosCountStatusLabel: TodosQR.getTodosCountStatusLabel(store.todos),
+  
   toggleVisibleItemsBtnLabel: TodosQR.getToggleVisibleItemsBtnLabel(
     store.todos
   ),
-  bounderyOutsideCountLabel: TodosQR.getBounderyOutsideCountLabel(store.todos),
-  dateLabel: TimerQR.getDateLabel(store.timer),
   bgColor: store.todos.bgColor
 })
 const mapDispatch = (dispatch: Dispatch<AnyAction>): MapDispatch =>

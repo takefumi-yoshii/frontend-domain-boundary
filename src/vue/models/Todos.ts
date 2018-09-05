@@ -30,12 +30,6 @@ const TodosGT = {
   },
   getToggleVisibleItemsBtnLabel(state: TodosST) {
     return TodosUC.getToggleVisibleItemsBtnLabel(state.showAll)
-  },
-  getBounderyOutsideCountLabel(state: TodosST) {
-    return TodosUC.getBounderyOutsideCountLabel(
-      state.bounderyOutsideName,
-      state.bounderyOutsideCount
-    )
   }
 }
 const { getters, mapGetters } = fromGetters(TodosGT, namespace)

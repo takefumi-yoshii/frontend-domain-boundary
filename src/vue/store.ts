@@ -3,6 +3,7 @@ import Vuex, { Store } from 'vuex'
 import * as VuexAggregate from 'vuex-aggregate'
 import * as Timer from './models/Timer'
 import * as Todos from './models/Todos'
+import * as Summary from './models/Summary'
 import { AbstractService } from '../service'
 import { TodosPresentST } from '../models/TodosPresent'
 
@@ -13,6 +14,7 @@ import { TodosPresentST } from '../models/TodosPresent'
 interface StoreST {
   timer: Timer.TimerST
   todos: Todos.TodosST
+  summary: Summary.SummaryST
 }
 
 // ______________________________________________________
@@ -25,13 +27,15 @@ const store: Store<StoreST> = new Vuex.Store({
   modules: {
     [Timer.namespace]: Timer.moduleFactory(),
     [Todos.namespace]: Todos.moduleFactory({
-      name: 'VUE_TODOS',
+      name: 'VUE_TODOS'
+    }),
+    [Summary.namespace]: Summary.moduleFactory({
       bounderyOutsideName: 'Redux'
     })
   }
 })
 
-VuexAggregate.use(store) // Required
+VuexAggregate.use(store)
 
 // ______________________________________________________
 //
@@ -44,8 +48,8 @@ const VuexService: AbstractService = {
   },
   onChangeBounderyOutside(state: { todos: TodosPresentST }) {
     const itemsLength = state.todos.items.length
-    if (itemsLength !== store.state.todos.bounderyOutsideCount) {
-      Todos.commits.setBounderyOutsideCount(itemsLength)
+    if (itemsLength !== store.state.summary.bounderyOutsideCount) {
+      Summary.commits.setBounderyOutsideCount(itemsLength)
     }
   },
   tick(date: Date) {
@@ -57,4 +61,4 @@ const VuexService: AbstractService = {
 //
 // @ export
 
-export { store, VuexService }
+export { StoreST, store, VuexService }

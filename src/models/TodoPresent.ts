@@ -2,7 +2,7 @@ import { TodoBaseST, TodoBaseModel } from './TodoBase'
 
 // ______________________________________________________
 //
-// @ TodosItem State
+// @ State
 
 interface TodoPresentST extends TodoBaseST {
   dateLabel: string

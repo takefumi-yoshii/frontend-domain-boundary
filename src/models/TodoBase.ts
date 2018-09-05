@@ -2,7 +2,7 @@ import { uuid } from '../helpers/uuid'
 
 // ______________________________________________________
 //
-// @ TodoBase State
+// @ State
 
 interface TodoBaseST {
   id: string

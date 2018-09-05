@@ -5,6 +5,7 @@ import { StoreST } from '../store'
 import { TodosContainer } from './TodosContainer'
 import { TodosFormContainer } from './TodosFormContainer'
 import { TodosItemsContainer } from './TodosItemsContainer'
+import { SummaryContainer } from './SummaryContainer'
 import styled from 'styled-components'
 
 // ______________________________________________________
@@ -21,6 +22,7 @@ export class AppProvider extends React.Component<
             items={() => <TodosItemsContainer />}
             form={() => <TodosFormContainer />}
           />
+          <SummaryContainer />
         </StyledView>
       </Provider>
     )
@@ -30,4 +32,7 @@ export class AppProvider extends React.Component<
 const StyledView = styled.div`
   padding: 10px;
   box-sizing: border-box;
+  > * {
+    margin-bottom: 10px;
+  }
 `

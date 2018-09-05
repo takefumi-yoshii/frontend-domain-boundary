@@ -1,21 +1,23 @@
 <template>
   <div class='root'>
-    <todos />
+    <todos-vue />
   </div>
 </template>
 
 
 <script lang='ts'>
 import Vue from 'vue'
-import Todos from './Todos.vue'
-const components = { Todos }
-export default Vue.extend({ components })
+import TodosVue from './Todos.vue'
+const components = { TodosVue }
 </script>
 
 
-<style>
+<style scoped>
 .root {
   padding: 10px;
   box-sizing: border-box;
+}
+.root > * {
+  margin-bottom: 10px;
 }
 </style>
