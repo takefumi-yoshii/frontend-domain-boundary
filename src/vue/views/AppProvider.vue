@@ -1,6 +1,7 @@
 <template>
   <div class='root'>
     <todos-vue />
+    <summary-vue />
   </div>
 </template>
 
@@ -8,7 +9,10 @@
 <script lang='ts'>
 import Vue from 'vue'
 import TodosVue from './Todos.vue'
-const components = { TodosVue }
+import SummaryVue from './Summary.vue'
+import * as Summary from '../models/Summary'
+const components = { TodosVue, SummaryVue }
+export default Vue.extend({ components })
 </script>
 
 

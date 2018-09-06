@@ -1,11 +1,9 @@
-
+import { fork, take, select, put } from 'redux-saga/effects'
+import { StoreST, Timer, Summary } from '../store'
 
 // ______________________________________________________
 //
 // @ Service
-
-import { fork, take, select, put } from 'redux-saga/effects'
-import { StoreST, Timer, Summary } from '../store'
 
 function* mapTimer(): IterableIterator<any> {
   while (true) {

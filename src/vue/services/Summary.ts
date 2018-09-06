@@ -1,26 +1,30 @@
-
+import { store } from '../store'
+import * as Timer from '../models/Timer'
+import * as Summary from '../models/Summary'
 
 // ______________________________________________________
 //
 // @ Service
 
-import { fork, take, select, put } from 'redux-saga/effects'
-import { StoreST } from '../store'
-import * as Timer from '../models/Timer'
-import * as Summary from '../models/Summary'
-
-function* mapTimer(): IterableIterator<any> {
-  console.log('ddd')
+function waitAction(type: string, _store = store) {
+  return new Promise(resolve => {
+    const unsubscribe = _store.subscribe(action => {
+      if(action.type === type) {
+        unsubscribe()
+        resolve(action)
+      }
+    })
+  })
+}
+async function mapTimer(_store = store) {
   while (true) {
-    yield take(Timer.mutationTypes.tick)
-    console.log('tick')
-    // const storeState: StoreST = yield select()
-    // const date = storeState.timer.date
-    // yield put(Summary.creators.setDateLabel(date))
+    await waitAction(Timer.mutationTypes.tick)
+    const date = _store.state.timer.date
+    Summary.commits.setDateLabel(date)
   }
 }
-
-export function * rootSaga() {
-  console.log('ddd')
-  yield fork(mapTimer)
+function runService(_store = store) {
+  mapTimer(_store)
 }
+
+export { runService }

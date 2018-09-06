@@ -6,6 +6,7 @@ import * as Todos from './models/Todos'
 import * as Summary from './models/Summary'
 import { AbstractService } from '../service'
 import { TodosPresentST } from '../models/TodosPresent'
+import { runService } from './services/Summary'
 
 // ______________________________________________________
 //
@@ -39,7 +40,13 @@ VuexAggregate.use(store)
 
 // ______________________________________________________
 //
-// @ Services
+// @ DI Services
+
+runService()
+
+// ______________________________________________________
+//
+// @ RPC Services
 
 const VuexService: AbstractService = {
   subscribe: (fn: any) => store.subscribe(fn),
